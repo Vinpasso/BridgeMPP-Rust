@@ -1,0 +1,4 @@
+[package]
+name = "bridge_chat_rust"
+version = "0.1.0"
+authors = ["Blackhole16 <Blackhole16@web.de>"]
