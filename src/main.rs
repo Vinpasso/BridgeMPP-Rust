@@ -34,12 +34,18 @@ fn main() {
                     let br = BufReader::new(stream);
 
                     for line in br.lines() {
-                        let l = line.unwrap();
-                        println!("{}", l);
-                        let lock = local_state.read();
-                        let state = lock.unwrap();
-                        for cl in &state.clients {
-                            cl.write(&l);
+                        match line {
+                            Ok(l) => {
+                                println!("{}", l);
+                                let lock = local_state.read();
+                                let state = lock.unwrap();
+                                for cl in &state.clients {
+                                    cl.write(&l);
+                                }
+                            }
+                            Err(_) => {
+                                break; // RIP client
+                            }
                         }
                     }
                     println!("Connection Closed");
