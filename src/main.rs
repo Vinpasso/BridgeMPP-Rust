@@ -10,30 +10,7 @@ use state::State;
 use client::Client;
 
 fn main() {
-    //let mut vec = Vec::new();
-    //vec.push(1);
-    //vec.push(2);
-    //vec.push(3);
-    //println!("{:?}", &vec);
-    //let mut state = State::new(vec);
-    //let arc = Arc::new(RwLock::new(state));
-
-    //{
-    //    let copy = arc.clone();
-    //    let state = copy.read().unwrap();
-    //    for i in state.clients {
-    //        println!("{}", i);
-    //    }
-    //}
-
-    //arc.clone().write().unwrap().clients.push(0);
-
-    //for i in arc.clone().read().unwrap().clients {
-    //    println!("{}", i);
-    //}
-
-    let clients = Vec::new();
-    let state = State::new(clients);
+    let state = State::new();
     let arc = Arc::new(RwLock::new(state));
 
     println!("Starting Server");
@@ -59,12 +36,13 @@ fn main() {
                     for line in br.lines() {
                         let l = line.unwrap();
                         println!("{}", l);
-                        let mut lock = local_state.write();
-                        let mut state = lock.as_mut().unwrap();
-                        for mut cl in state.getClients() {
+                        let lock = local_state.read();
+                        let state = lock.unwrap();
+                        for cl in &state.clients {
                             cl.write(&l);
                         }
                     }
+                    println!("Connection Closed");
                 });
             }
             Err(e) => { /* connection failed */ }

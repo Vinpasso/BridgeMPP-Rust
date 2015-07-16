@@ -5,13 +5,13 @@ pub struct State {
 }
 
 impl State {
-    pub fn new(clients: Vec<Client>) -> State {
+    pub fn new() -> State {
         State {
-            clients: clients,
+            clients: Vec::new(),
         }
     }
 
-    pub fn getClients(&mut self) -> &mut Vec<Client> {
+    pub fn get_clients_mut(&mut self) -> &mut Vec<Client> {
         return &mut self.clients;
     }
 }

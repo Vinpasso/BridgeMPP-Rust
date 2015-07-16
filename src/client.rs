@@ -13,7 +13,7 @@ impl Client {
         }
     }
 
-    pub fn write(&mut self, s: &str) {
+    pub fn write(&self, s: &str) {
         let mut local_bw = self.bw.lock().unwrap();
         writeln!(local_bw, "{}", s);
         local_bw.flush();
