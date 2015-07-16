@@ -45,7 +45,7 @@ fn main() {
                     println!("Connection Closed");
                 });
             }
-            Err(e) => { /* connection failed */ }
+            Err(_) => { /* connection failed */ }
         }
     }
 }
