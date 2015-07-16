@@ -27,8 +27,8 @@ fn main() {
                 let local_state = arc.clone();
                 thread::spawn(move|| {
                     {
-                        let mut lock = local_state.write();
-                        lock.as_mut().unwrap().clients.push(client);
+                        let mut lock = local_state.write().unwrap();
+                        lock.clients.push(client);
                     }
 
                     let br = BufReader::new(stream);
