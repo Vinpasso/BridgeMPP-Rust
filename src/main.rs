@@ -40,7 +40,14 @@ fn main() {
                                 let lock = local_state.read();
                                 let state = lock.unwrap();
                                 for cl in &state.clients {
-                                    cl.write(&l);
+                                    /*
+                                     * TODO: Solve this cleanly!
+                                     * Right now, IO errors just panic here which is bad for 2 reasons:
+                                     * a) As a panic, it's designed as an unrecoverable error which is not exactly what a dead client is.
+                                     *    We shouldn't (have to) unwind the thread.
+                                     * b) Note how we're holding the local_state lock: This poisons the lock and kills the entire server!
+                                     */
+                                    cl.write(&l).unwrap();
                                 }
                             }
                             Err(_) => {
