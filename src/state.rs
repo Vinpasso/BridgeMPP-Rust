@@ -10,8 +10,4 @@ impl State {
             clients: Vec::new(),
         }
     }
-
-    pub fn get_clients_mut(&mut self) -> &mut Vec<Client> {
-        return &mut self.clients;
-    }
 }
