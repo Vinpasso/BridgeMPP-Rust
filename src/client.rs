@@ -1,5 +1,5 @@
 use std::net::TcpStream;
-use std::io::{Write, BufWriter};
+use std::io::{Write, BufWriter, Result};
 use std::sync::Mutex;
 
 pub struct Client {
@@ -13,9 +13,10 @@ impl Client {
         }
     }
 
-    pub fn write(&self, s: &str) {
+    pub fn write(&self, s: &str) -> Result<()> {
         let mut local_bw = self.bw.lock().unwrap();
-        writeln!(local_bw, "{}", s);
-        local_bw.flush();
+        try!(writeln!(local_bw, "{}", s));
+        try!(local_bw.flush());
+        Ok(())
     }
 }
