@@ -17,6 +17,5 @@ impl Client {
         let mut local_bw = self.bw.lock().unwrap();
         writeln!(local_bw, "{}", s);
         local_bw.flush();
-        return;
     }
 }

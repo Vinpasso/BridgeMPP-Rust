@@ -48,7 +48,4 @@ fn main() {
             Err(e) => { /* connection failed */ }
         }
     }
-
-    // close the socket server
-    drop(listener);
 }
